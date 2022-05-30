@@ -9,5 +9,4 @@ class OngApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }

@@ -58,6 +58,7 @@ public class ApiExceptionHandler {
         return buildResponseEntity(HttpStatus.CONFLICT, exception);
     }
 
+
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler({ForbiddenException.class})
     @ResponseBody
