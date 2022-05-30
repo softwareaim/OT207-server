@@ -17,12 +17,12 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class ApiExceptionHandler {
 
-//    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-//    @ExceptionHandler({UnauthorizedException.class, org.springframework.security.access.AccessDeniedException.class})
-//    @ResponseBody
-//    public void unauthorizedRequest() {
-//        //Empty. Nothing to do
-//    }
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler({UnauthorizedException.class, org.springframework.security.access.AccessDeniedException.class})
+    @ResponseBody
+    public void unauthorizedRequest() {
+        //Empty. Nothing to do
+    }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler({NotFoundException.class})

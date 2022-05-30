@@ -2,7 +2,7 @@ package com.alkemy.ong.model;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-
+import com.alkemy.ong.model.User;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
