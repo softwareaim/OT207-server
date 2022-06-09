@@ -38,28 +38,20 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> userRegistration(@Valid @RequestBody UserRequestDto userRequestDto, BindingResult bindingResult) throws Exception {
+    public ResponseEntity<AuthenticationResponse> userRegistration(@Valid @RequestBody UserRequestDto userRequestDto, BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             throw new BadRequestException(bindingResult);
         }
         UserResponseDto userResponseDto = userDetailsCustomService.register(userRequestDto);
-        return new ResponseEntity<>(userResponseDto, HttpStatus.CREATED);
+        AuthenticationRequest authRequest = new AuthenticationRequest(userRequestDto.getEmail(),userRequestDto.getPassword());
+        AuthenticationResponse authResponse = this.userDetailsCustomService.login(authRequest);
+        return ResponseEntity.ok().body(authResponse);
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> singIn(@RequestBody AuthenticationRequest authRequest) {
-
-        UserDetails userDetails;
-        try {
-            Authentication auth = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
-            );
-            userDetails = (UserDetails) auth.getPrincipal();
-        } catch (BadCredentialsException e) {
-            throw new ForbiddenException("Incorrect username or password");
-        }
-        final String jwt = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+        AuthenticationResponse authResponse = this.userDetailsCustomService.login(authRequest);
+        return ResponseEntity.ok().body(authResponse);
     }
 
     @GetMapping("/users")
