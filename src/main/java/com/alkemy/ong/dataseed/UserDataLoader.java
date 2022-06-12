@@ -59,8 +59,8 @@ public class UserDataLoader implements CommandLineRunner {
 
         if (userRepository.count() == 0) {
             for (int i = 0; i < 10; i++) {
-                userRepository.save(userBuilder("admin" + (i + 1) + "@test.com", "test1234", adminRoles));
-                userRepository.save(userBuilder("user" + (i + 1) + "@test.com", "test1234", userRoles));
+                userRepository.save(userBuilder("carlos" + (i + 1) + "@admin.com", "test1234", adminRoles));
+                userRepository.save(userBuilder("maria" + (i + 1) + "@user.com", "test1234", userRoles));
             }
         }
         System.out.println(userRepository.count());
