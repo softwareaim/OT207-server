@@ -20,8 +20,6 @@ import java.util.List;
 @RequestMapping(Url.MEMBERS_URI)
 public class MemberController implements MemberControllerDoc {
 
-
-
     @Autowired
     private IMemberService memberService;
 

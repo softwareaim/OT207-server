@@ -3,6 +3,7 @@ package com.alkemy.ong.domain.service.impl;
 import com.alkemy.ong.domain.util.Url;
 import com.alkemy.ong.dto.NewsDTO;
 import com.alkemy.ong.dto.PageDTO;
+import com.alkemy.ong.exception.BadRequestException;
 import com.alkemy.ong.exception.NotFoundException;
 import com.alkemy.ong.mapper.NewsMapper;
 import com.alkemy.ong.domain.model.Category;
@@ -87,8 +88,12 @@ public class NewsServiceImpl implements INewsService {
     @Override
     public PageDTO<NewsDTO> getAllNewsPageable(Integer page) {
         PageDTO<NewsDTO> newsDTOPageDTO = new PageDTO<>();
-        Page<News> news = this.newsRepository.findAll(PageRequest.of(page - 1, Url.MAX_PAGE, Sort.by("name")));
-        return Url.pagination(newsDTOPageDTO,news,page,this.newsMapper.newsEntityPage2Dto(news),URI);
+        try {
+            Page<News> news = this.newsRepository.findAll(PageRequest.of(page - 1, Url.MAX_PAGE, Sort.by("name")));
+            return Url.pagination(newsDTOPageDTO,news,page,this.newsMapper.newsEntityPage2Dto(news),URI);
+        }catch (Exception e){
+            throw new NotFoundException(e.getMessage());
+        }
     }
 
 }

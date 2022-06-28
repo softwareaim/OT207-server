@@ -28,7 +28,6 @@ public class MemberServiceImpl implements IMemberService {
             Member MemberEntity = memberMapper.memberDtoToMemberEntity(memberDto);
             Member savedEntity = memberRepository.save(MemberEntity);
             return memberMapper.memberEntityToMemberDto(savedEntity);
-
     }
 
 
